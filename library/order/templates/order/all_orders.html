@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Orders</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+        }
+        p {
+        margin-bottom: 10px;
+        }
+
+        a {
+        text-decoration: none;
+        color: #007BFF;
+        margin-right: 10px;
+        }
+
+		.navbar-nav > li > a {
+            color: black;
+            font-size: 16px;
+
+        }
+		.navbar-brand {
+			color: black;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        #title_authors {
+            margin-top: 50px;
+        }
+
+    </style>
+</head>
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+<body>
+<nav class="[ navbar navbar-fixed-top ][ navbar-bootsnipp animate ]" role="navigation">
+    <div class="[ container ]">
+        <div class="[ navbar-header ]">
+            <button type="button" class="[ navbar-toggle ]" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                <span class="[ sr-only ]">Toggle navigation</span>
+                <span class="[ icon-bar ]"></span>
+                <span class="[ icon-bar ]"></span>
+                <span class="[ icon-bar ]"></span>
+            </button>
+            <div class="[ animbrand ]">
+                <a class="[ navbar-brand ][ animate ]" href="/">Library</a>
+            </div>
+        </div>
+        <div class="[ collapse navbar-collapse ]" id="bs-example-navbar-collapse-1">
+            <ul class="[ nav navbar-nav navbar-right ]">
+                <li><a href="{% url 'authors' %}" class="[ animate ]">Authors</a></li>
+                <li><a href="{% url 'all_users' %}" class="[ animate ]">Users</a></li>
+                <li><a href="{% url 'books' %}" class="[ animate ]">Books</a></li>
+                <li><a href="{% url 'orders' %}" class="[ animate ]">Orders</a></li>
+                <li><a href="{% url 'create_order' %}" class="[ animate ]">Make order</a></li>
+                <li><a href="{% url 'registration' %}" class="[ animate ]">Registration</a></li>
+                <li><a href="{% url 'login' %}" class="[ animate ]">Log in</a></li>
+                <li><a href="{% url 'logout' %}" class="[ animate ]">Log out</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container" id="title_authors">
+        <h1>Orders</h1>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">All orders</h3>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="dev-table">
+                            <thead class="table-sm">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Book name</th>
+                                    <th scope="col">User name</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for order in all_orders %}
+                            <tr>
+                                <th scope="row">{{ forloop.counter }}</th>
+                                <td>{{ order.book.name }}</td>
+                                <td>{{ order.user.first_name }} {{ order.user.last_name }}</td>
+                                <td><a href="{% url 'delete_order' order_id=order.id %}" class="btn btn-danger">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash"
+                                         viewBox="0 0 16 16">
+                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                                    </svg>
+                                </a></td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

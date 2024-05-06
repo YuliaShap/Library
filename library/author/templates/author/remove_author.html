@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Remove Author</title>
+</head>
+<body>
+<h2>Remove Author</h2>
+<p>Are you sure you want to remove {{ author.name }} {{ author.surname }}?</p>
+<form method="post" action="{% url 'remove_author' author.id %}">
+    {% csrf_token %}
+    <input type="submit" value="Remove">
+</form>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+    <meta charset="UTF-8">
+    <title>Books</title>
+{% include 'header.html' %}
+{% block content %}
+<body>
+<div class="container" id="title_authors">
+    <h1>Books</h1>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">All books</h3>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover" id="dev-table">
+                        <thead>
+                        <tr>
+                            <th>Id <input class="form-control" type="text" id="filterId" placeholder="Filter ID"></th>
+                            <th>Name <input class="form-control" type="text" id="filterName" placeholder="Filter Name">
+                            </th>
+                            <th>Authors <input class="form-control" type="text" id="filterAuthors"
+                                               placeholder="Filter Authors"></th>
+                            <th>Count<input class="form-control" type="text" id="filterCount"
+                                               placeholder="Filter Count"></th>
+                            <th>Year of Publication <input class="form-control" type="text" id="filterYear"
+                                                           placeholder="Filter Year"></th>
+                            <th>Date of Issue <input class="form-control" type="text" id="filterDate"
+                                                     placeholder="Filter Date"></th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for book in books %}
+                        <tr onclick="window.location.href='info/{{ book.id }}';">
+                            <td>{{ book.id }}</td>
+                            <td>{{ book.name }}</td>
+                            <td>{{ book.authors_name }}</td>
+                            <td>{{ book.count }}</td>
+                            <td>{{ book.year_of_publication }}</td>
+                            <td>{{ book.date_of_issue }}</td>
+                            <td>
+                                <a href="{% url 'edit_book' book.id %}" class="btn btn-primary">Edit</a>
+                            </td>
+                        </tr>
+
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+<script>
+    document.querySelectorAll('.form-control').forEach(item => {
+        item.addEventListener('keyup', filterTable);
+    });
+
+    function filterTable() {
+        const filterId = document.getElementById('filterId').value.toUpperCase();
+        const filterName = document.getElementById('filterName').value.toUpperCase();
+        const filterAuthors = document.getElementById('filterAuthors').value.toUpperCase();
+        const filterYear = document.getElementById('filterYear').value.toUpperCase();
+        const filterDate = document.getElementById('filterDate').value.toUpperCase();
+        const rows = document.querySelectorAll('tbody tr');
+
+        rows.forEach(row => {
+            const id = row.querySelector('td:nth-child(1)').textContent.toUpperCase();
+            const name = row.querySelector('td:nth-child(2)').textContent.toUpperCase();
+            const authors = row.querySelector('td:nth-child(3)').textContent.toUpperCase();
+            const year = row.querySelector('td:nth-child(4)').textContent.toUpperCase();
+            const date = row.querySelector('td:nth-child(5)').textContent.toUpperCase();
+
+            if (id.includes(filterId) && name.includes(filterName) && authors.includes(filterAuthors)
+                && year.includes(filterYear) && date.includes(filterDate)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    }
+</script>
+

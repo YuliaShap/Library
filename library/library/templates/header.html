@@ -1,0 +1,80 @@
+<head>
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+        }
+        p {
+        margin-bottom: 10px;
+        }
+
+        a {
+        text-decoration: none;
+        color: #007BFF;
+        margin-right: 10px;
+        }
+
+        .navbar-nav > li > a {
+            color: black;
+            font-size: 16px;
+        }
+        .navbar-brand {
+            color: black;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .welcome-block {
+            margin-top: 70px;
+            font-size: 18px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        #title_authors {
+            margin-top: 50px;
+        }
+
+    </style>
+</head>
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+<body>
+<nav class="[ navbar navbar-fixed-top ][ navbar-bootsnipp animate ]" role="navigation">
+    <div class="[ container ]">
+        <div class="[ navbar-header ]">
+            <button type="button" class="[ navbar-toggle ]" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                <span class="[ sr-only ]">Toggle navigation</span>
+                <span class="[ icon-bar ]"></span>
+                <span class="[ icon-bar ]"></span>
+                <span class="[ icon-bar ]"></span>
+            </button>
+            <div class="[ animbrand ]">
+                <a class="[ navbar-brand ][ animate ]" href="/">Library</a>
+            </div>
+        </div>
+        <div class="[ collapse navbar-collapse ]" id="bs-example-navbar-collapse-1">
+            <ul class="[ nav navbar-nav navbar-right ]">
+                <li><a href="{% url 'authors' %}" class="[ animate ]">Authors</a></li>
+                <li><a href="{% url 'all_users' %}" class="[ animate ]">Users</a></li>
+                <li><a href="{% url 'books' %}" class="[ animate ]">Books</a></li>
+                <li><a href="{% url 'orders' %}" class="[ animate ]">Orders</a></li>
+                <li><a href="{% url 'create_order' %}" class="[ animate ]">Create order</a></li>
+                <li><a href="{% url 'registration' %}" class="[ animate ]">Registration</a></li>
+                <li><a href="{% url 'login' %}" class="[ animate ]">Log in</a></li>
+                <li><a href="{% url 'logout' %}" class="[ animate ]">Log out</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+{% block content %}{% endblock %}
+</body>
+</html>

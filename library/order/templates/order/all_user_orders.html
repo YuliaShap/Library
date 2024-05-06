@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Orders</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+        }
+        p {
+        margin-bottom: 10px;
+        }
+
+        a {
+        text-decoration: none;
+        color: #007BFF;
+        margin-right: 10px;
+        }
+
+		.navbar-nav > li > a {
+            color: black;
+            font-size: 16px;
+
+        }
+		.navbar-brand {
+			color: black;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        #title_authors {
+            margin-top: 50px;
+        }
+
+    </style>
+</head>
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+<body>
+<nav class="[ navbar navbar-fixed-top ][ navbar-bootsnipp animate ]" role="navigation">
+    <div class="[ container ]">
+        <div class="[ navbar-header ]">
+            <button type="button" class="[ navbar-toggle ]" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                <span class="[ sr-only ]">Toggle navigation</span>
+                <span class="[ icon-bar ]"></span>
+                <span class="[ icon-bar ]"></span>
+                <span class="[ icon-bar ]"></span>
+            </button>
+            <div class="[ animbrand ]">
+                <a class="[ navbar-brand ][ animate ]" href="/">Library</a>
+            </div>
+        </div>
+        <div class="[ collapse navbar-collapse ]" id="bs-example-navbar-collapse-1">
+            <ul class="[ nav navbar-nav navbar-right ]">
+                <li><a href="{% url 'authors' %}" class="[ animate ]">Authors</a></li>
+                <li><a href="{% url 'all_users' %}" class="[ animate ]">Users</a></li>
+                <li><a href="{% url 'books' %}" class="[ animate ]">Books</a></li>
+                <li><a href="{% url 'orders' %}" class="[ animate ]">Orders</a></li>
+                <li><a href="{% url 'create_order' %}" class="[ animate ]">Make order</a></li>
+                <li><a href="{% url 'registration' %}" class="[ animate ]">Registration</a></li>
+                <li><a href="{% url 'login' %}" class="[ animate ]">Log in</a></li>
+                <li><a href="{% url 'logout' %}" class="[ animate ]">Log out</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container" id="title_authors">
+    <h1>My orders</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">All my orders</h3>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover" id="dev-table">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Book name</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Planned end date</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for order in all_user_orders %}
+                        <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td>{{ order.book.name }}</td>
+                            <td>{{ order.book.description }}</td>
+                            <td>{{ order.plated_end_at }}</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <div>
+                        <a href="create_order" type="button" class="btn btn-primary">Create new order</a>
+                    </div>
+                </div>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+                        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+                        crossorigin="anonymous"></script>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

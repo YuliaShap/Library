@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <meta charset="UTF-8">
+    <title>Authors</title>
+{% include 'header.html' %}
+{% block content %}
+<div class="container" id="title_authors">
+    <h1>Authors</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">All authors</h3>
+                </div>
+                <table class="table table-hover" id="dev-table">
+                    <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>Name</th>
+                        <th>Patronymic</th>
+                        <th>Surname</th>
+                        <th>Book Count</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for author in authors_list %}
+                    <tr>
+                        <td>{{ author.id }}</td>
+                        <td>{{ author.name }}</td>
+                        <td>{{ author.patronymic }}</td>
+                        <td>{{ author.surname }}</td>
+                        <td>{{ author.get_book_count }}</td>
+                        <td>
+                            {% if author.get_book_count == 0 %}
+                            <a href="{% url 'remove_author' author.id %}" class="btn btn-danger">Delete</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <a href="{% url 'new_author' %}" class="btn btn-primary">Create new author</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

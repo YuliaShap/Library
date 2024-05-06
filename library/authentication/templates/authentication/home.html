@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+    <meta charset="UTF-8">
+    <title>Home</title>
+{% include 'header.html' %}
+
+{% block content %}
+<div class="welcome-block">
+    {% if request.user.is_authenticated %}
+    <p>Welcome, {{ name }}!</p>
+    <a href="{% url 'logout' %}">Log out</a>
+    {% else %}
+    <p>Welcome, Guest! Log in, please </p>
+    <a href="{% url 'login' %}">Log in</a>
+    {% endif %}
+</div>
+{% endblock %}
