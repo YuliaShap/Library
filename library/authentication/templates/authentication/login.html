@@ -28,20 +28,8 @@
                                 <label for="id_password">Password:</label>
                                 {{ form.password }}
                             </div>
-                            {% if messages %}
-                            <ul class="messages">
-                                {% for message in messages %}
-                                <li>{{ message }}</li>
-                                {% endfor %}
-                            </ul>
-                            {% endif %}
                             <div>
                                 <button type="submit" class="btn btn-primary mt-4">Login</button>
-                            </div>
-                            <div>
-                                <p class="text-center text-muted mt-5 mb-0">Do you want to register? <a
-                                        href="{% url 'registration' %}"
-                                        class="fw-bold text-body"><u>Registration</u></a></p>
                             </div>
                         </form>
 

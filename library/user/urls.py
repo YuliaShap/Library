@@ -1,14 +1,13 @@
-from django.urls import path, include
-from rest_framework import routers
+from django.urls import path
+from .views import all_users, users, librarians
+from rest_framework.routers import DefaultRouter
+from .views import UserViewSet
 
-from order.views import UserOrderDetail
-from user.views import UserViewSet
-
-router = routers.DefaultRouter()
-router.register(r'user', UserViewSet)
+router_user = DefaultRouter()
+router_user.register(r'user', UserViewSet)
 
 urlpatterns = [
-    path('', include(router.urls)),
-    path('api/v1/', include('user.urls')),
-
+    path('all_users/', all_users, name='all_users'),
+    path('users/', users, name='users'),
+    path('librarians/', librarians, name='librarians'),
 ]

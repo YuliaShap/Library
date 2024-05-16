@@ -1,4 +1,6 @@
+from datetime import timezone
 from django.db import models
+from author.models import *
 
 
 class Book(models.Model):
@@ -17,22 +19,17 @@ class Book(models.Model):
     """
     name = models.CharField(blank=True, max_length=128)
     description = models.CharField(blank=True, max_length=256)
+    year_of_publication = models.IntegerField()
     count = models.IntegerField(default=10)
-    year_of_publication = models.IntegerField(null=True, blank=True)
-    date_of_issue = models.DateField(null=True, blank=True)
+    date_of_issue = models.DateField(editable=True)
     id = models.AutoField(primary_key=True)
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        if not self.authors:
-            self.authors = None
 
     def __str__(self):
         """
         Magic method is redefined to show all information about Book.
         :return: book id, book name, book description, book count, book authors
         """
-        return f"'id': {self.id}, 'name': '{self.name}', 'description': '{self.description}', 'count': {self.count}, 'authors': {[author.id for author in self.authors.all()]}, 'year_of_publication': {self.year_of_publication}, 'date_of_issue': {self.date_of_issue}"
+        return f"'id': {self.id}, 'name': '{self.name}', 'description': '{self.description}', 'count': {self.count}, 'authors': {[author.id for author in self.authors.all()]}"
 
     def __repr__(self):
         """
@@ -80,13 +77,11 @@ class Book(models.Model):
         book = Book()
         book.name = name
         book.description = description
-        book.count = countbook.year_of_publication = year_of_publication
-        book.year_of_publication = year_of_publication
-        book.date_of_issue = date_of_issue
+        book.count = count
+        if (authors is not None):
+            for elem in authors:
+                book.authors.add(elem)
         book.save()
-        if authors is not None:
-            book.authors.set(authors)
-
         return book
 
     def to_dict(self):

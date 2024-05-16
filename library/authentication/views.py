@@ -1,7 +1,5 @@
-import time
 from functools import wraps
 
-from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
 from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import render, redirect
@@ -22,12 +20,12 @@ def registration(request):
             user = form.save(commit=False)
             user.password = make_password(form.cleaned_data['password'])
             user.save()
-            time.sleep(10)
             login(request, user)
             return render(request, 'authentication/home.html', {'name': user.first_name})
     else:
         form = AuthForm()
     return render(request, 'authentication/index.html', {'form': form})
+
 
 
 def user_login(request):
@@ -42,11 +40,11 @@ def user_login(request):
                 name = user.first_name
                 return render(request, 'authentication/home.html', {'name': name})
             else:
-                messages.error(request, 'Invalid email or password.')
-                return redirect('login')
+                return render(request, 'authentication/login.html', {'form': form, 'error_message': 'Invalid email or password.'})
     else:
         form = LoginForm()
     return render(request, 'authentication/login.html', {'form': form})
+
 
 def user_logout(request):
     logout(request)

@@ -1,12 +1,50 @@
+import statistics
 from django.contrib.auth import get_user
 from django.contrib.auth.models import AnonymousUser
 from django.shortcuts import render, redirect, get_object_or_404
+from requests import Response
 
 from authentication.views import librarian_required
 from .forms import BookForm
 from .models import Book
 
+from rest_framework import viewsets
+from .models import Book
+from .serializers import BookSerializer
+from rest_framework.generics import RetrieveAPIView
+from rest_framework.generics import RetrieveUpdateDestroyAPIView
+from rest_framework.permissions import IsAuthenticated
 
+class BookViewSet(viewsets.ModelViewSet):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+
+class BookDetail(RetrieveUpdateDestroyAPIView):
+  
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    permission_classes = [IsAuthenticated]
+
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        self.perform_destroy(instance)
+        return Response(status=statistics.HTTP_204_NO_CONTENT)
+
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
 def book(request):
     user = get_user(request)
     if isinstance(user, AnonymousUser):

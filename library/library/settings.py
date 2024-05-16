@@ -24,13 +24,12 @@ SECRET_KEY = '_y2b#-m(nwf8irkpgs)wpg+-e$#_7^xaevp^me4+u4ov+3fyw*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0']
-
+ALLOWED_HOSTS = []
 
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
+    # 'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -41,6 +40,8 @@ INSTALLED_APPS = [
     'book',
     'order',
     'user',
+    # 'catalog',
+    'rest_framework'
 ]
 
 AUTH_USER_MODEL = 'authentication.CustomUser'
@@ -92,7 +93,7 @@ DATABASES = {
         'NAME': 'postgres',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
-        'HOST': 'db',
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }
@@ -159,9 +160,5 @@ LOGGING = {
         },
     },
 }
-try:
-    from .local_settings import *
-except ImportError:
-    pass
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
